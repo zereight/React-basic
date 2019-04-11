@@ -17,7 +17,10 @@ class App extends Component {
   }
 
   componentDidMount(){ 
-    fetch(`https://yts.am/api/v2/list_movies.json?sort_by=download_count`); // return promise
+    fetch(`https://yts.am/api/v2/list_movies.json?sort_by=download_count`)// return promise
+    .then( res => res.json() ) //get fetch's returned obj when fetch is finished// obj to json
+    .then( res2 => console.log(res2) ) // print json
+    .catch(err => console.log(err)) //when error occurred
   }
 
  _renderMovies = () =>  {
