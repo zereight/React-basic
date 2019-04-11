@@ -23,6 +23,21 @@ const movies = [
 ];
 
 class App extends Component {
+
+
+  //this is occured automatically.
+  //When Render :  componentWillMount() => render() => componenetDidMount()
+  //When Update : componentWillReceiveProps() => shouldComponentUpdate() == true
+  // => componentWillUpdate() => render()  => componentDidUpdate()
+
+  componentWillMount(){
+
+  }
+
+  componentDidMount(){
+
+  }
+
   render() {
     return (
       <div className="App">
