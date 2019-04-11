@@ -24,24 +24,30 @@ const movies = [
 
 class App extends Component {
 
+  state = { //component state is Dynamic Variable for components, It expresses Component's  state
+    greeting : `Hello`
+  };
 
-  //this is occured automatically.
-  //When Render :  componentWillMount() => render() => componenetDidMount()
-  //When Update : componentWillReceiveProps() => shouldComponentUpdate() == true
-  // => componentWillUpdate() => render()  => componentDidUpdate()
 
   componentWillMount(){
 
   }
 
-  componentDidMount(){
-
+  componentDidMount(){ // working after rendering
+    setTimeout( () => {
+      this.setState(      // you must change state's value using setState(), because it can call component's Life cycle function.
+        {
+          greeting: `Hello twice!`
+        }
+      )
+    }, 1000 );
   }
 
   render() {
     return (
       <div className="App">
-        {movies.map( movie => {
+          <h5>{this.state.greeting}</h5>
+          {movies.map( movie => {
           return (<Movie title={movie.title} poster={movie.poster} />);
         } )}      
       </div>
