@@ -8,9 +8,8 @@ import Movie from "./movie";
 class App extends Component {
 
   state = { 
-    greeting : `Hello`,
-    movies : []
-  };
+    movies:[]
+  }
 
 
   componentWillMount(){
@@ -18,33 +17,7 @@ class App extends Component {
   }
 
   componentDidMount(){ 
-    setTimeout(() => {
-      this.setState({
-        movies : [
-          ...this.state.movies, // ... add on remained movies
-          {
-            title: "Get Out",
-            poster: "https://m.media-amazon.com/images/M/MV5BMjUxMDQwNjcyNl5BMl5BanBnXkFtZTgwNzcwMzc0MTI@._V1_.jpg"
-          },
-          {
-            title: "Money",
-            poster: "http://img.cgv.co.kr/Movie/Thumbnail/Poster/000081/81651/81651_1000.jpg"
-          },
-          {
-            title: "Avengets",
-            poster: "https://hips.hearstapps.com/digitalspyuk.cdnds.net/18/10/1520596571-avengers-art.jpg"
-          },
-          {
-            title: "Venom",
-            poster: "http://img.cgv.co.kr/Movie/Thumbnail/Poster/000080/80589/80589_1000.jpg" 
-          },
-          { //new movies
-            title: "Bumble Bee",
-            poster: "https://cdn-images-1.medium.com/max/2600/1*asCuPasrO5qPB4hAAu2upQ.jpeg"
-          }
-        ]
-      });
-    },1000); //after 1 sec
+    fetch(`https://yts.am/api/v2/list_movies.json?sort_by=download_count`); // return promise
   }
 
  _renderMovies = () =>  {
