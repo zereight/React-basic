@@ -8,7 +8,7 @@ import Movie from "./movie";
 class App extends Component {
 
   state = { 
-    movies:[]
+    
   }
 
 
@@ -17,23 +17,38 @@ class App extends Component {
   }
 
   componentDidMount(){ 
-    fetch(`https://yts.am/api/v2/list_movies.json?sort_by=download_count`)// return promise
-    .then( res => res.json() ) //get fetch's returned obj when fetch is finished// obj to json
-    .then( res2 => console.log(res2) ) // print json
-    .catch(err => console.log(err)) //when error occurred
+    this._getMoives()
   }
 
  _renderMovies = () =>  {
   return this.state.movies.map( movie => {
-    return (<Movie title={movie.title} poster={movie.poster} />);
+    console.log(movie);
+    return (<Movie key={movie.id} title={movie.title} poster={movie.medium_cover_image} />);
   }) ;
+}
+
+ _getMoives = async () => {
+  const movies = await this._callApi();
+  //console.log(movies);
+  this.setState(
+    {
+      movies
+    }
+  )
+}
+
+_callApi = async () => {
+  let movieItems = await fetch(`https://yts.am/api/v2/list_movies.json?sort_by=download_count`)// return promise
+  movieItems = await movieItems.json();
+  movieItems = await movieItems.data.movies;
+  return movieItems;
 }
 
   render() {
     return (
       <div className="App">
-          <h5>{this.state.greeting}</h5>
-          {this.state.movies.length !== 0 ? this._renderMovies() : 'Loading'}
+
+          {this.state.movies ? this._renderMovies() : 'Loading'}
       </div>
     );
   }
